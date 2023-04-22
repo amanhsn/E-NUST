@@ -51,6 +51,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _obscureText = true;
   Widget build(BuildContext context) {
   return Container(
     width: 360,
@@ -104,39 +105,93 @@ class _MyHomePageState extends State<MyHomePage> {
         fontWeight: FontWeight.normal,
         height: 1
       ),)
-      ),Positioned(
-        top: 190,
-        left: 24,
-        child: Container(
+      ),Stack(
+  children: [
+    Positioned(
+      top: 190,
+      left: 24,
+      child: SizedBox(
         width: 271,
-        height: 32,
-        decoration: const BoxDecoration(
-          borderRadius : BorderRadius.only(
-            topLeft: Radius.circular(7),
-            topRight: Radius.circular(7),
-            bottomLeft: Radius.circular(7),
-            bottomRight: Radius.circular(7),
+        height: 36,
+        child: Material(
+          color: Colors.transparent,
+          child: TextField(
+            obscureText: _obscureText,
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.lock, color: Colors.white),
+              suffixIcon: IconButton(
+              icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+              onPressed: () {
+              setState(() {
+              _obscureText = !_obscureText;
+              });
+              },
+              ),
+              contentPadding: EdgeInsets.zero,
+              filled: true,
+              fillColor: Color.fromRGBO(65, 60, 60, 1),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(7),
+                borderSide: BorderSide.none,
+              ),
+            ),
+            style: TextStyle(
+        decoration: TextDecoration.none,
+        fontFamily: 'Montserrat',
+        fontSize: 18,
+        letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
+        fontWeight: FontWeight.normal,
+        height: 1,
+              color: Colors.white,
+            ),
+            cursorColor: Colors.white,
+            //controller: TextEditingController(text: ''), //initial value
+            //obscureText: true,
           ),
-      color : Color.fromRGBO(65, 60, 60, 1),
-  )
-      )
-      ),Positioned(
-        top: 112,
-        left: 25,
-        child: Container(
+        ),
+      ),
+    ),
+  ],
+),Stack(
+  children: [
+    Positioned(
+      top: 112,
+      left: 25,
+      child: SizedBox(
         width: 271,
-        height: 32,
-        decoration: const BoxDecoration(
-          borderRadius : BorderRadius.only(
-            topLeft: Radius.circular(7),
-            topRight: Radius.circular(7),
-            bottomLeft: Radius.circular(7),
-            bottomRight: Radius.circular(7),
+        height: 36,
+        child: Material(
+          color: Colors.transparent,
+          child: TextField(
+            
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.person, color: Colors.white),
+              contentPadding: EdgeInsets.zero,
+              filled: true,
+              fillColor: Color.fromRGBO(65, 60, 60, 1),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(7),
+                borderSide: BorderSide.none,
+              ),
+            ),
+            style: TextStyle(
+        decoration: TextDecoration.none,
+        fontFamily: 'Montserrat',
+        fontSize: 18,
+        letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
+        fontWeight: FontWeight.normal,
+        height: 1,
+              color: Colors.white,
+            ),
+            cursorColor: Colors.white,
+            controller: TextEditingController(text: '  '), //initial value
           ),
-      color : Color.fromRGBO(65, 60, 60, 1),
-  )
-      )
-      ),const Positioned(
+        ),
+      ),
+    ),
+  ],
+),
+const Positioned(
         top: 90,
         left: 25,
         child: Text('Username', textAlign: TextAlign.left, style: TextStyle(
@@ -160,28 +215,6 @@ class _MyHomePageState extends State<MyHomePage> {
         fontWeight: FontWeight.normal,
         height: 1
       ),)
-      ),Positioned(
-        top: 197,
-        left: 270,
-        child: Container(
-      width: 18,
-      height: 18,
-      decoration: const BoxDecoration(
-          color : Color.fromRGBO(255, 255, 255, 1),
-  ),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-        top: 1.5,
-        left: 1.5,
-        child: Image.asset(
-        'assets/images/whide.png',
-        //semanticsLabel: 'EyeOff'
-      ),
-      ),
-        ]
-      )
-    )
       ),const Positioned(
         top: 112,
         left: 30,
@@ -194,7 +227,8 @@ class _MyHomePageState extends State<MyHomePage> {
         fontWeight: FontWeight.normal,
         height: 1
       ),)
-      ),Positioned(
+      )
+      ,Positioned(
         top: 240,
         left: 86,
         child: Container(
