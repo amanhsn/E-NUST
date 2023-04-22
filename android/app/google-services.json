@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "916669372995",
+    "project_id": "enust-5804",
+    "storage_bucket": "enust-5804.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916669372995:android:d118848fc9ad0ee92952f6",
+        "android_client_info": {
+          "package_name": "com.example.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916669372995-7thib26j8ok5b9ev42s8pdk7ucoq0lsn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXohyT2uy21uYymIpmHH-NhLRmE6ZrxR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916669372995-7thib26j8ok5b9ev42s8pdk7ucoq0lsn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

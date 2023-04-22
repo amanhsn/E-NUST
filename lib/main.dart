@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/splash.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,6 +53,49 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //Init the firebase app
+  Future<FirebaseApp> _initializeFirebase() async{
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    return firebaseApp;
+  }
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: FutureBuilder(
+        future: _initializeFirebase(),
+        builder: (context, snapshot){
+          if(snapshot.connectionState == ConnectionState.done){
+            return LoginScreen();
+          }
+          return const Center(child: CircularProgressIndicator());
+        }
+      )
+    );
+  }
+}
+  class LoginScreen extends StatefulWidget {
+    const LoginScreen({Key? key}) : super(key: key);
+    
+    @override
+    _LoginScreenState createState() => _LoginScreenState();
+  }
+
+  class _LoginScreenState extends State<LoginScreen> {
+    //Login using username and password
+    static Future<User?> loginUsingUsernamePassword({required String username, required String password,required BuildContext context}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try{
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: username, password: password);
+      user = userCredential.user;
+    } on FirebaseAuthException catch(e){
+      if(e.code == 'user-not-found'){
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No user found for that email.')));
+    }
+    }
+    return user;
+    }
+
   bool _obscureText = true;
   Widget build(BuildContext context) {
   return Container(
@@ -61,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-    const Text('Login', textAlign: TextAlign.center, style: TextStyle(
+        const Text('Login', textAlign: TextAlign.center, style: TextStyle(
         decoration: TextDecoration.none,
         color: Color.fromRGBO(255, 255, 255, 1),
         fontFamily: 'Montserrat',
