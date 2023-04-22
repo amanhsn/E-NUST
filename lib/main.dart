@@ -60,7 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   @override
   Widget build(BuildContext context){
-    return Scaffold(
+    return Container(
+      child: Scaffold(
       body: FutureBuilder(
         future: _initializeFirebase(),
         builder: (context, snapshot){
@@ -69,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
           }
           return const Center(child: CircularProgressIndicator());
         }
+      )
       )
     );
   }
@@ -102,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
     width: 360,
     height: 800,
     color: const Color(0xff121212),
-    padding: const EdgeInsets.only(top: 119, bottom: 140, ),
+    child: Expanded(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -372,6 +374,7 @@ const Positioned(
     ),
     ],
         ),
+     ),
         );
 }
 }
