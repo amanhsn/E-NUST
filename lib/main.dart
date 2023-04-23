@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/splash.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myapp/HomeScreen.dart';
+import 'package:myapp/signup.dart';
 
 
 void main() {
@@ -83,12 +84,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   class _LoginScreenState extends State<LoginScreen> {
-    //Login using username and password
-    static Future<User?> loginUsingUsernamePassword({required String username, required String password,required BuildContext context}) async {
+    //Login using email and password
+    static Future<User?> loginUsingEmailPassword({required String email, required String password,required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try{
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: username, password: password);
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: email, password: password);
       user = userCredential.user;
     } on FirebaseAuthException catch(e){
       if(e.code == 'user-not-found'){
@@ -100,11 +101,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _obscureText = true;
   Widget build(BuildContext context) {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   return Container(
     width: 360,
     height: 800,
     color: const Color(0xff121212),
-    child: Expanded(
+    child: Flex(direction: Axis.vertical,
+    children: [
+    Expanded(
+    flex: 1,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -163,6 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Material(
           color: Colors.transparent,
           child: TextField(
+            controller: _passwordController,
             obscureText: _obscureText,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.lock, color: Colors.white),
@@ -210,7 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Material(
           color: Colors.transparent,
           child: TextField(
-            
+            controller:_emailController,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.person, color: Colors.white),
               contentPadding: EdgeInsets.zero,
@@ -231,7 +238,7 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.white,
             ),
             cursorColor: Colors.white,
-            controller: TextEditingController(text: '  '), //initial value
+            //controller: TextEditingController(text: ' '), //initial value
           ),
         ),
       ),
@@ -241,7 +248,7 @@ class _MyHomePageState extends State<MyHomePage> {
 const Positioned(
         top: 90,
         left: 25,
-        child: Text('Username', textAlign: TextAlign.left, style: TextStyle(
+        child: Text('Email', textAlign: TextAlign.left, style: TextStyle(
           decoration: TextDecoration.none,
         color: Color.fromRGBO(255, 255, 255, 1),
         fontFamily: 'Montserrat',
@@ -289,15 +296,25 @@ const Positioned(
             bottomRight: Radius.circular(7),
           ),
       color : Color.fromRGBO(19, 50, 91, 1),
-  )
+  ),
+  child: RawMaterialButton(onPressed: () async{
+    //testing app
+    User? user = await loginUsingEmailPassword(email: _emailController.text, password: _passwordController.text, context: context);
+    print(user);
+    if(user != null){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
+  },
+  
+  ),
       )
       ),const Positioned(
-        top: 245,
+        top: 247,
         left: 128,
         child: Text('Submit', textAlign: TextAlign.left, style: TextStyle(
           decoration: TextDecoration.none,
         color: Color.fromRGBO(227, 227, 227, 1),
-        fontFamily: 'Inter',
+        fontFamily: 'Montserrat',
         fontSize: 18,
         letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
         fontWeight: FontWeight.normal,
@@ -348,33 +365,40 @@ const Positioned(
         height: 40,
         decoration: BoxDecoration(
           borderRadius : BorderRadius.only(
-            topLeft: Radius.circular(5),
-            topRight: Radius.circular(5),
-            bottomLeft: Radius.circular(5),
-            bottomRight: Radius.circular(5),
+            topLeft: Radius.circular(7),
+            topRight: Radius.circular(7),
+            bottomLeft: Radius.circular(7),
+            bottomRight: Radius.circular(7),
           ),
       color : Color.fromRGBO(66, 60, 60, 1),
+  ),
+    child: RawMaterialButton(onPressed: () async{
+    //testing app
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    },
+  
   )
       )
       ),const Positioned(
         top: 56,
-        left: 86,
+        left: 85,
         child: Text('Signup/Register', textAlign: TextAlign.left, style: TextStyle(
         decoration: TextDecoration.none,
         color: Color.fromRGBO(255, 255, 255, 1),
-        fontFamily: 'Inter',
+        fontFamily: 'Montserrat',
         fontSize: 20,
         letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
         fontWeight: FontWeight.normal,
         height: 1
-      ),)
+      ),),
       ),
         ]
       )
     ),
     ],
         ),
-     ),
+    ),
+    ]),
         );
 }
 }
