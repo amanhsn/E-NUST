@@ -1,4 +1,4 @@
-# myapp
+# ENUST
 
 A new Flutter project.
 
