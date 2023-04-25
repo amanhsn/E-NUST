@@ -104,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   return Container(
-    width: 360,
-    height: 800,
+    width: double.infinity,
+    height: double.infinity,
     color: const Color(0xff121212),
     child: Flex(direction: Axis.vertical,
     children: [
@@ -169,18 +169,21 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Material(
           color: Colors.transparent,
           child: TextField(
-            controller: _passwordController,
             obscureText: _obscureText,
+            controller: _passwordController,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.lock, color: Colors.white),
+
               suffixIcon: IconButton(
-              icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
-              onPressed: () {
-              setState(() {
+          icon: Icon(
+            _obscureText ? Icons.visibility_off : Icons.visibility,
+          ),
+          onPressed: () {
+            setState(() {
               _obscureText = !_obscureText;
-              });
-              },
-              ),
+            });
+          },
+        ),
               contentPadding: EdgeInsets.zero,
               filled: true,
               fillColor: Color.fromRGBO(65, 60, 60, 1),
@@ -269,35 +272,21 @@ const Positioned(
         fontWeight: FontWeight.normal,
         height: 1
       ),)
-      ),const Positioned(
-        top: 112,
-        left: 30,
-        child: Text('', textAlign: TextAlign.left, style: TextStyle(
-          decoration: TextDecoration.none,
-        color: Color.fromRGBO(255, 255, 255, 1),
-        fontFamily: 'Montserrat',
-        fontSize: 18,
-        letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-        fontWeight: FontWeight.normal,
-        height: 1
-      ),)
-      )
-      ,Positioned(
+      ),
+      Positioned(
         top: 240,
         left: 86,
         child: Container(
+        //color:Color.fromRGBO(19, 50, 91, 1),
         width: 148,
         height: 30,
-        decoration: const BoxDecoration(
-          borderRadius : BorderRadius.only(
-            topLeft: Radius.circular(7),
-            topRight: Radius.circular(7),
-            bottomLeft: Radius.circular(7),
-            bottomRight: Radius.circular(7),
-          ),
-      color : Color.fromRGBO(19, 50, 91, 1),
-  ),
+  child: Material(
+    color: Color.fromRGBO(19, 50, 91, 1),
+    elevation: 5,
+    borderRadius: BorderRadius.circular(8),
   child: RawMaterialButton(onPressed: () async{
+    
+    //enabled=true;
     //testing app
     User? user = await loginUsingEmailPassword(email: _emailController.text, password: _passwordController.text, context: context);
     print(user);
@@ -305,21 +294,19 @@ const Positioned(
       Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
     }
   },
-  
-  ),
-      )
-      ),const Positioned(
-        top: 247,
-        left: 128,
-        child: Text('Submit', textAlign: TextAlign.left, style: TextStyle(
+  //fillColor: Color.fromRGBO(19, 50, 91, 1),
+  child: Text("Login",textAlign: TextAlign.center, style: TextStyle(
           decoration: TextDecoration.none,
-        color: Color.fromRGBO(227, 227, 227, 1),
+        color: Color.fromRGBO(255, 255, 255, 1),
         fontFamily: 'Montserrat',
-        fontSize: 18,
+        fontSize: 20,
         letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
         fontWeight: FontWeight.normal,
-        height: 1
-      ),)
+        height: 1,
+      ))
+  ),
+  )
+      )
       ),
         ]
       )
@@ -332,7 +319,7 @@ const Positioned(
           Positioned(
         top: 10,
         left: 15,
-        child: Text('New User?', textAlign: TextAlign.left, style: TextStyle(
+        child: Text('New User?', textAlign: TextAlign.center, style: TextStyle(
           decoration: TextDecoration.none,
         color: Color.fromRGBO(255, 255, 255, 1),
         fontFamily: 'Montserrat',
@@ -363,34 +350,27 @@ const Positioned(
         child: Container(
         width: 265,
         height: 40,
-        decoration: BoxDecoration(
-          borderRadius : BorderRadius.only(
-            topLeft: Radius.circular(7),
-            topRight: Radius.circular(7),
-            bottomLeft: Radius.circular(7),
-            bottomRight: Radius.circular(7),
-          ),
-      color : Color.fromRGBO(66, 60, 60, 1),
-  ),
+  child: Material(
+    elevation: 5,
+    borderRadius: BorderRadius.circular(12),
+    color: Color.fromRGBO(19, 50, 91, 1),
     child: RawMaterialButton(onPressed: () async{
+      enabled: true;
     //testing app
       Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
     },
-  
-  )
-      )
-      ),const Positioned(
-        top: 56,
-        left: 85,
-        child: Text('Signup/Register', textAlign: TextAlign.left, style: TextStyle(
-        decoration: TextDecoration.none,
+    child: Text("Signup",textAlign: TextAlign.center, style: TextStyle(
+          decoration: TextDecoration.none,
         color: Color.fromRGBO(255, 255, 255, 1),
         fontFamily: 'Montserrat',
         fontSize: 20,
         letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
         fontWeight: FontWeight.normal,
-        height: 1
-      ),),
+        height: 1,
+      ))
+  ),
+  )
+      )
       ),
         ]
       )
